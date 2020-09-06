@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.minwook.rx_study.R
 import com.minwook.rx_study.base.VMProviders
 import com.minwook.rx_study.viewmodel.GithubViewmodel
@@ -24,19 +25,17 @@ class MainActivity : AppCompatActivity() {
 
         githubViewmodel = VMProviders.of(this).get(GithubViewmodel::class.java)
         githubViewmodel.searchList.observe(this) {
-            Log.d("Test", "MainActivity : ${it.size}")
             if (!it.isNullOrEmpty()) {
-                Log.d("Test", "MainActivity aaaa")
                 adapter.addList(it)
             }
         }
 
         bt_search.setOnClickListener {
-            //githubViewmodel.getSearchRepositories("tetris+language:kotlin")
             githubViewmodel.getSearchRepositories(et_search_text.text.toString())
         }
 
         adapter = SearchListAdapter(this)
         rv_search_list.adapter = adapter
+        rv_search_list.layoutManager = LinearLayoutManager(this)
     }
 }

@@ -25,9 +25,6 @@ class GithubViewmodel(application: RxStudyApp): BaseViewModel(application) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.d("Test", "items.count : ${it.items.count()}")
-                Log.d("Test", "$it")
-
                 searchList.postValue(it.items)
             }, {
                 Log.e("Test", "getSearchRepositories error : ${it.localizedMessage}")
